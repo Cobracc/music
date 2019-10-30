@@ -3,7 +3,7 @@
   <div class="history pd23" v-if="history.length">
     <div class="history-title">
       <span>历史记录</span>
-      <i class="search iconlajitong" @click="clearHistory"></i>
+      <i class="iconfont icon-shanchu1" @click="clearHistory"></i>
     </div>
     <div class="wrapper">
       <div class="container">
@@ -60,7 +60,7 @@ export default {
     justify-content: space-between;
     height: 42px;
     line-height: 42px;
-    .iconlajitong {
+    .iconfont {
       width: 42px;
       height: 42px;
       text-align: center;
