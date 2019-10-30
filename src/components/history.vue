@@ -2,7 +2,7 @@
 <template>
   <div class="history pd23" v-if="history.length">
     <div class="history-title">
-      <span>历史记录</span>
+      <span>历史记录1</span>
       <i class="iconfont icon-shanchu1" @click="clearHistory"></i>
     </div>
     <div class="wrapper">
