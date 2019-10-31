@@ -10,7 +10,6 @@
         <div
           class="phone-nav fixed pd23"
           :style="{'background':listFixed? 'url('+song_data.coverImgUrl+'?param=300y300)' : 'none'}"
-          :class="{fixs:listFixed}"
         >
           <i class="iconfont icon-fanhui1 phone iconzuojiantou" @click="back"></i>
           <span class="text">歌单</span>
@@ -63,55 +62,6 @@
           </div>
         </div>
       </div>
-      <!-- <section class="u-plhead pylst_header">
-        <div class="detail_nav fixed">
-          <i @click="back()" class="iconfont icon-fanhui1"></i>
-          <p>歌单</p>
-        </div>
-        <div
-          class="plhead_bg"
-          :style="{'background': 'url('+song_data.coverImgUrl+'?param=300y300)'}"
-        ></div>
-        <div class="plhead_wrap">
-          <div class="plhead_fl lsthd_fl" @click="show = false">
-            <img class="u-img" :src="song_data.coverImgUrl" />
-            <i
-              class="iconfont icon-bofang1 u-earp lsthd_num"
-            >{{`${song_data.playCount>100000000?`${(song_data.playCount/100000000).toFixed(1)}亿`:`${song_data.playCount>10000?`${parseInt(song_data.playCount/10000)}万`:song_data.playCount}`}`}}</i>
-          </div>
-          <div class="plhead_fr">
-            <h2 class="f-thide2 f-brk lsthd_title">{{song_data.name}}</h2>
-            <div class="lsthd_auth f-thide">
-              <a class="lsthd_link" href="#">
-                <div class="u-avatar lsthd_ava">
-                  <img class="u-img" :src="song_jianjie.avatarUrl" />
-                  <span class="ava-icon ava-icon-daren"></span>
-                </div>
-                {{song_jianjie.nickname}}
-                <i class="iconfont icon-qianjin2"></i>
-              </a>
-            </div>
-            <div class="description" @click="show = false">
-              <p v-html="descriptions"></p>
-              <i class="iconfont icon-qianjin2"></i>
-            </div>
-          </div>
-        </div>
-        <div class="detail_tag">
-          <i class="iconfont icon-pinglun" @click="goReview">
-            <p>{{commentCount}}</p>
-          </i>
-          <i class="iconfont icon-fenxiang1">
-            <p>{{song_data.shareCount}}</p>
-          </i>
-          <i class="iconfont icon-xiazai3">
-            <p>下载</p>
-          </i>
-          <i class="iconfont icon-check">
-            <p>多选</p>
-          </i>
-        </div>
-      </section>-->
       <div class="content-lists-info" v-show="!loading">
         <div class="list-title" :class="{listFixed}">
           <div class="play" @click="goplay(0)">
@@ -209,7 +159,6 @@ export default {
         window.pageYOffset ||
         document.documentElement.scrollTop ||
         document.body.scrollTop;
-      console.log(scrollTop);
       if (scrollTop > 240) {
         this.listFixed = true;
         this.scrollTop = scrollTop;
@@ -364,11 +313,6 @@ export default {
       -webkit-box-align: center;
       align-items: center;
       z-index: 9;
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: 50%;
-      // filter: blur(20px);
-      // transform: scale(1.5);
       .phone {
         font-size: 20px;
         margin-right: 15px;
@@ -402,21 +346,6 @@ export default {
       content: " ";
       background-color: rgba(0, 0, 0, 0.25);
     }
-    // .fixs:after {
-    //   content: " ";
-    //   background-color: rgba(0, 0, 0, 0.25);
-    // }
-    // .fixs {
-    //   position: absolute;
-    //   left: 0;
-    //   top: 0;
-    //   right: 0;
-    //   bottom: 0;
-    //   filter: blur(20px);
-    //   -webkit-transform: scale(1.5);
-    //   transform: scale(1.5);
-    //   z-index: -1;
-    // }
     .album-info {
       padding-top: 50px;
       z-index: 9;
