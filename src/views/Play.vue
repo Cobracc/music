@@ -9,7 +9,9 @@
           <i class="icon-menu iconfont icon-fanhui1"></i>
         </div>
         <div class="title">
-          <div class="name">{{song_data.name}}{{alia}}</div>
+          <div class="name">{{song_data.name}}
+            <p v-show="alia">({{alia}})</p>
+             </div>
           <div class="user">
             <span class="user-name">{{singer}}</span>
             <i class="icon-menu"></i>
@@ -584,6 +586,9 @@ export default {
       opacity: 0.96;
       .name {
         font-size: 15.5px;
+        p{
+          display: inline-block
+        }
       }
       .user {
         margin-top: 2.2px;

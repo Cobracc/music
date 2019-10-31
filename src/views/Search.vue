@@ -1,9 +1,3 @@
-<!--
- * @Author: 李浩栋
- * @Begin: 2019-08-27 12:37:42
- * @Update: 2019-09-01 21:49:23
- * @Update log: 这里用到了父组件调用子组件方法
- -->
 <template>
   <div>
     <search-inp ref="search" page="search" Right="54px"></search-inp>

@@ -1,12 +1,77 @@
 <template>
-  <div>
+  <div class="detail1">
     <div class="detail" v-if="show">
-      <section class="u-plhead pylst_header">
-        <div class="detail_nav">
+      <div class="container-top">
+        <div
+          v-show="!listFixed"
+          class="plhead_bg"
+          :style="{'background': 'url('+song_data.coverImgUrl+'?param=300y300)'}"
+        ></div>
+        <div
+          class="phone-nav fixed pd23"
+          :style="{'background':listFixed? 'url('+song_data.coverImgUrl+'?param=300y300)' : 'none'}"
+          :class="{fixs:listFixed}"
+        >
+          <i class="iconfont icon-fanhui1 phone iconzuojiantou" @click="back"></i>
+          <span class="text">歌单</span>
+        </div>
+
+        <div class="album-info pd23">
+          <div class="info-top">
+            <div class="img-info" @click="show = false">
+              <img :src="song_data.coverImgUrl" lazy="loaded" />
+              <span class="play-count">
+                <i
+                  class="iconfont icon-bofang1 u-earp lsthd_num"
+                >{{`${song_data.playCount>100000000?`${(song_data.playCount/100000000).toFixed(1)}亿`:`${song_data.playCount>10000?`${parseInt(song_data.playCount/10000)}万`:song_data.playCount}`}`}}</i>
+              </span>
+            </div>
+            <div class="info-con">
+              <p class="album-title">{{song_data.name}}</p>
+              <div class="creator">
+                <div class="img-info">
+                  <img :src="song_jianjie.avatarUrl" lazy="loaded" />
+                </div>
+                <span>
+                  {{song_jianjie.nickname}}
+                  <i class="iconfont icon-qianjin2"></i>
+                </span>
+              </div>
+              <div class="desc-wrapper" @click="show = false">
+                <span class="desc" v-html="descriptions"></span>
+                <i class="iconfont icon-qianjin2"></i>
+              </div>
+            </div>
+          </div>
+          <div class="icons">
+            <div class="comments" @click="goReview">
+              <i class="iconfont icon-pinglun date-song pinglun"></i>
+              <span>{{commentCount}}</span>
+            </div>
+            <div class="comments">
+              <i class="iconfont icon-fenxiang1 date-song fenxiang"></i>
+              <span>{{song_data.shareCount}}</span>
+            </div>
+            <div class="comments">
+              <i class="iconfont icon-xiazai3 date-song xiazai"></i>
+              <span>下载</span>
+            </div>
+            <div class="comments">
+              <i class="iconfont icon-check date-song duoxuankuang"></i>
+              <span>多选</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <section class="u-plhead pylst_header">
+        <div class="detail_nav fixed">
           <i @click="back()" class="iconfont icon-fanhui1"></i>
           <p>歌单</p>
         </div>
-        <div class="plhead_bg" :style="{'background': 'url('+song_data.coverImgUrl+'?param=300y300)'}"></div>
+        <div
+          class="plhead_bg"
+          :style="{'background': 'url('+song_data.coverImgUrl+'?param=300y300)'}"
+        ></div>
         <div class="plhead_wrap">
           <div class="plhead_fl lsthd_fl" @click="show = false">
             <img class="u-img" :src="song_data.coverImgUrl" />
@@ -46,10 +111,10 @@
             <p>多选</p>
           </i>
         </div>
-      </section>
+      </section>-->
       <div class="content-lists-info" v-show="!loading">
-        <div class="list-title">
-          <div class="play">
+        <div class="list-title" :class="{listFixed}">
+          <div class="play" @click="goplay(0)">
             <i class="iconfont icon-bofang5"></i>
             <span class="label">播放全部</span>
             <span class="count">(共{{song_data.trackCount}}首)</span>
@@ -114,7 +179,9 @@ export default {
       show: true,
       imgurl: "",
       loading: true,
-      commentCount: ""
+      commentCount: "",
+      listFixed: false,
+      scrollTop: ""
     };
   },
   components: {
@@ -131,7 +198,26 @@ export default {
   created() {
     this.getDetail();
   },
+  mounted() {
+    // 监听滚动事件
+    window.addEventListener("scroll", this.handleScroll, true);
+  },
+
   methods: {
+    handleScroll() {
+      var scrollTop =
+        window.pageYOffset ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop;
+      console.log(scrollTop);
+      if (scrollTop > 240) {
+        this.listFixed = true;
+        this.scrollTop = scrollTop;
+      } else {
+        this.listFixed = false;
+        this.scrollTop = scrollTop;
+      }
+    },
     getDetail() {
       var id = sessionStorage.getItem("songid");
       if (this.songid == "" && id == "") {
@@ -251,43 +337,58 @@ export default {
   }
 };
 </script>
-<style lang="less" >
+<style lang="less" scoped>
 .detail {
-  section {
-    display: block;
-    position: relative;
-    overflow: hidden;
-    .detail_nav {
-      width: 95%;
-      margin-top: 10px;
-      margin-bottom: 10px;
+  height: 100%;
+  overflow-y: scroll;
+  .container-top {
+    height: 290px;
+    width: 100%;
+    color: #fff;
+    .fixed {
+      position: fixed;
+      width: 100%;
+      height: 42px;
+      z-index: 9;
+      top: 0;
+    }
+    .pd23 {
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      padding: 0 12px;
+      z-index: 9;
+    }
+
+    .phone-nav {
       display: flex;
-      position: relative;
-      z-index: 2;
-      i {
-        display: inline-block;
+      -webkit-box-align: center;
+      align-items: center;
+      z-index: 9;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: 50%;
+      // filter: blur(20px);
+      // transform: scale(1.5);
+      .phone {
         font-size: 20px;
-        color: white;
+        margin-right: 15px;
       }
-      p {
-        display: inline-block;
+      .text {
         font-size: 20px;
-        margin-left: 15px;
-        color: white;
-        margin-top: -3px;
+        vertical-align: 5px;
+        width: 309px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
-  }
-  .u-plhead {
-    position: relative;
-    padding: 0px 10px 35px 15px;
-    overflow: hidden;
     .plhead_bg {
       background-repeat: no-repeat;
       background-size: cover;
       background-position: 50%;
       filter: blur(20px);
       transform: scale(1.5);
+      z-index: -1;
     }
     .plhead_bg,
     .plhead_bg:after {
@@ -296,156 +397,131 @@ export default {
       top: 0;
       right: 0;
       bottom: 0;
-      z-index: 1;
     }
     .plhead_bg:after {
       content: " ";
       background-color: rgba(0, 0, 0, 0.25);
     }
-    .plhead_wrap {
-      display: flex;
-      position: relative;
-      z-index: 2;
-      padding-top: 10px;
-      .plhead_fl {
-        position: relative;
-        width: 114px;
-        height: 114px;
-        background-color: #e2e2e3;
-      }
-      .plhead_fl {
-        width: 126px;
-        height: 126px;
-        .u-img {
-          width: 100%;
-          vertical-align: middle;
-          border: 0;
-        }
-        .lsthd_icon {
-          position: absolute;
-          z-index: 3;
-          top: 10px;
-          left: 0;
-          padding: 0 8px;
-          height: 17px;
-          color: #fff;
-          font-size: 9px;
-          text-align: center;
-          line-height: 17px;
-          background-color: rgba(217, 48, 48, 0.8);
-          border-top-right-radius: 17px;
-          border-bottom-right-radius: 17px;
-        }
-        .lsthd_num {
-          position: absolute;
-          right: 2px;
-          top: 0;
-          z-index: 3;
-          padding-left: 15px;
-          color: #fff;
-          font-size: 12px;
-          background-position: 0;
-          background-repeat: no-repeat;
-          background-size: 11px 10px;
-          text-shadow: 1px 0 0 rgba(0, 0, 0, 0.15);
-        }
-      }
-      .plhead_fr {
-        -webkit-box-flex: 1;
-        flex: 1 1 auto;
-        width: 1%;
-        margin-left: 16px;
-        .lsthd_title {
-          padding-top: 1px;
-          font-size: 17px;
-          line-height: 1.3;
-          color: #fefefe;
-          height: 44px;
-          display: -webkit-box;
-          -webkit-box-pack: center;
-        }
-        .f-thide2,
-        .f-thide3,
-        .f-thide4 {
-          overflow: hidden;
-          text-overflow: ellipsis;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-        }
-        .f-brk {
-          word-wrap: break-word;
-          white-space: normal;
-        }
-        .lsthd_auth {
-          display: block;
+    // .fixs:after {
+    //   content: " ";
+    //   background-color: rgba(0, 0, 0, 0.25);
+    // }
+    // .fixs {
+    //   position: absolute;
+    //   left: 0;
+    //   top: 0;
+    //   right: 0;
+    //   bottom: 0;
+    //   filter: blur(20px);
+    //   -webkit-transform: scale(1.5);
+    //   transform: scale(1.5);
+    //   z-index: -1;
+    // }
+    .album-info {
+      padding-top: 50px;
+      z-index: 9;
+      .info-top {
+        height: 157.5px;
+        display: flex;
+        -webkit-box-pack: justify;
+        justify-content: space-between;
+        overflow: hidden;
+        .img-info {
+          width: 136.5px;
+          height: 0;
           position: relative;
-          margin-top: 15px;
-        }
-        .f-thide {
+          padding-bottom: 136.5px;
+          border-radius: 5.77px;
           overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-          word-break: normal;
-          .lsthd_link {
-            display: inline-block;
+          img {
+            width: 136.5px;
+            height: 136.5px;
+            vertical-align: middle;
+          }
+          .play-count {
+            position: absolute;
+            top: 5.25px;
+            right: 5.25px;
+            i {
+              font-size: 12.6px;
+            }
+          }
+        }
+        .info-con {
+          width: 189px;
+          height: 136.5px;
+          display: flex;
+          -webkit-box-orient: vertical;
+          -webkit-box-direction: normal;
+          flex-direction: column;
+          overflow: hidden;
+          .album-title {
+            font-size: 18px;
+            line-height: 1.4;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+            -webkit-box-orient: vertical;
+            font-weight: 700;
+          }
+          .creator {
+            height: 52.5px;
             color: hsla(0, 0%, 100%, 0.7);
-            text-decoration: none;
-            .u-avatar {
-              position: relative;
-              width: 100%;
-            }
-            .lsthd_ava {
-              display: inline-block;
-              width: 25px;
-              height: 25px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            align-items: center;
+            .img-info {
+              width: 31.5px;
+              height: 0;
+              padding-bottom: 31.5px;
+              margin-right: 8px;
               border-radius: 50%;
-              vertical-align: middle;
-              margin-right: 10px;
-              .u-img {
-                width: 100%;
+              overflow: hidden;
+              img {
+                width: 31.5px;
+                height: 31.5px;
                 vertical-align: middle;
-                border-radius: 50%;
-              }
-              .ava-icon {
-                position: absolute;
-                right: -5px;
-                bottom: 0;
-                width: 12px;
-                height: 12px;
-                background-image: url(//s3.music.126.net/mobile-new/img/usericn_2x.png?6423c06…=);
-                background-repeat: no-repeat;
-                background-size: 75px auto;
-              }
-              .ava-icon-daren {
-                background-position: -40px 0;
+                border: 0;
               }
             }
-            .icon-qianjin2 {
+          }
+          .desc-wrapper {
+            display: flex;
+            -webkit-box-align: center;
+            align-items: center;
+            color: #fefefe;
+            .desc {
+              width: 157.5px;
+              text-overflow: ellipsis;
+              display: -webkit-box;
+              -webkit-line-clamp: 2;
+              overflow: hidden;
+              -webkit-box-orient: vertical;
               font-size: 14px;
             }
           }
         }
-        .description {
-          font-size: 12px;
-          line-height: 1.3;
-          color: #fefefe;
-          margin-top: 10px;
+      }
+      .icons {
+        margin-top: 8px;
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        .comments {
           display: flex;
           -webkit-box-pack: center;
-          p {
-            display: inline-block;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 2;
-            overflow: hidden;
-            font-size: 12px;
-            color: hsla(0, 0%, 100%, 0.7);
-          }
-          .icon-qianjin2 {
-            display: inline-block;
-            font-size: 12px;
-            color: hsla(0, 0%, 100%, 0.7);
-            margin-left: 5px;
+          justify-content: center;
+          -webkit-box-align: center;
+          align-items: center;
+          -webkit-box-orient: vertical;
+          -webkit-box-direction: normal;
+          flex-direction: column;
+          .i {
+            font-size: 21px;
+            margin-bottom: 5px;
           }
         }
       }
@@ -526,6 +602,13 @@ export default {
         border-radius: 30px;
         margin-right: 5px;
       }
+    }
+    .listFixed {
+      position: fixed;
+      width: 100%;
+      z-index: 9;
+      top: 42px;
+      background: #fff;
     }
     .list-content {
       .music-list {
@@ -728,5 +811,10 @@ export default {
       }
     }
   }
+}
+.p23 {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0 12px;
 }
 </style>

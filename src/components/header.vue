@@ -14,7 +14,7 @@
           </mt-swipe-item>
         </mt-swipe>
         <div class="tag">
-          <div class="first">
+          <div class="first" @click="goDaterecommend">
             <div class="second">
               <i class="iconfont icon-meirituijian"></i>
             </div>
@@ -105,6 +105,9 @@ export default {
     },
     goSearch() {
       this.$router.push("/search");
+    },
+    goDaterecommend(){
+      this.$router.push("/dateRecommend");
     },
     goDetail(index) {
       this.$router.push({

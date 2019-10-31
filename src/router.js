@@ -8,6 +8,7 @@ import Idx from "./views/Idx.vue";
 import Search from "./views/Search.vue";
 import Singer from "./views/Singer.vue";
 import Review from "./views/Review.vue";
+import dateRecommend from "./views/dateRecommend.vue";
 Vue.use(Router);
 
 export default new Router({
@@ -72,6 +73,14 @@ export default new Router({
       path: "/review",
       name: "review",
       component: Review
+    },
+    {
+      path: "/dateRecommend",
+      name: "dateRecommend",
+      component: dateRecommend,
+      meta: {
+        keepAlive: true
+      }
     }
   ]
 });
