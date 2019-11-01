@@ -17,7 +17,6 @@
       :style="{right: Right}"
     ></i>
     <i class="iconfont icon-geshou" v-if="page" @click="goSingerPage"></i>
-    <!-- 搜索建议列表信息 -->
     <div class="floatInfo" v-show="showList">
       <ul>
         <li @click="searchKey(keywords)" class="blue border-bottom">

@@ -1,9 +1,3 @@
-<!--
- * @Author: 李浩栋
- * @Begin: 2019-08-28 10:41:47
- * @Update: 2019-08-28 12:29:24
- * @Update log: 更新日志
- -->
 <template>
   <div class="song-hot-search">
     <p class="hot-search-title">热搜榜</p>
@@ -21,7 +15,6 @@
             <span class="num">{{ item.score }}</span>
             <img v-if="item.iconUrl" class="search-png" :src="item.iconUrl" />
           </div>
-          <!-- 歌曲介绍 -->
           <div class="song-Introduced">{{ item.content }}</div>
         </div>
       </li>

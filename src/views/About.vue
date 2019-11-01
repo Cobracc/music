@@ -45,12 +45,9 @@ export default {
     hide() {
       this.axios.get("/comment/playlist?id=2829883282").then(res => {
         if (res.data.code === 200) {
-          console.log(res.data)
           var now = new Date();
-          console.log("now"+now.getFullYear()+"年"+(now.getMonth()+1)+"月"+now.getDate()+"日")
           var myDate=new Date(1572320245852)
           this.requestText = (myDate.getHours())+":"+(myDate.getMinutes());
-          console.log("myDate"+myDate.getFullYear()+"年"+(myDate.getMonth()+1)+"月"+myDate.getDate()+"日")
         }
       });
     },

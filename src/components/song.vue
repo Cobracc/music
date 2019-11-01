@@ -56,9 +56,6 @@ export default {
 </script>
 
 <style lang='less' scoped>
-@import url("~styles/global.less");
-@import url("//at.alicdn.com/t/font_1380711_qksi58kw6ae.css");
-
 .list-item {
   .flex-between();
   align-items: center;

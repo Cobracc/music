@@ -1,9 +1,3 @@
-<!--
- * @Author: 李浩栋
- * @Begin: 2019-08-31 10:19:23
- * @Update: 2019-09-17 10:29:10
- * @Update log: 展示页面加载动画
- -->
 <template>
   <div class="container">
     <div class="page-loading">

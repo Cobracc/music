@@ -1,4 +1,3 @@
-
 <template>
   <div class="history pd23" v-if="history.length">
     <div class="history-title">
@@ -71,12 +70,9 @@ export default {
     box-sizing: border-box;
     overflow: hidden;
     height: 26.25px;
-    // 定义可左右滑动的图标组
     .container {
-      // 横向滚动条
       overflow-x: scroll;
       .icons-group {
-        // flex布局 溢出不换行
         height: 26.25px;
         display: flex;
         flex-wrap: nowrap;

@@ -68,13 +68,18 @@
             </div>
           </div>
         </div>
+        <new-dish></new-dish>
       </mt-tab-container-item>
     </mt-tab-container>
   </div>
 </template>
 <script>
 import { mapGetters, mapMutations, mapActions } from "vuex";
+import newDish from "@/components/newDish.vue";
 export default {
+  components: {
+    newDish
+  },
   data() {
     return {
       selected: "",
@@ -106,7 +111,7 @@ export default {
     goSearch() {
       this.$router.push("/search");
     },
-    goDaterecommend(){
+    goDaterecommend() {
       this.$router.push("/dateRecommend");
     },
     goDetail(index) {
@@ -185,7 +190,7 @@ export default {
   }
   .recommend {
     width: 100%;
-    height: 350px;
+    height: 360px;
     margin-top: 20px;
     .nav_song {
       width: 100%;
@@ -211,10 +216,10 @@ export default {
     }
     .content_song {
       width: 100%;
-      height: 85%;
+      height: 90%;
       .recommend_song {
         width: 32%;
-        height: 50%;
+        height: 46%;
         float: left;
         margin-top: 15px;
         margin-left: 7px;

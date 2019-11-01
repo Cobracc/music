@@ -93,14 +93,6 @@
             </div>
           </div>
         </div>
-        <!-- <div>
-          <div class="cmt_more f-bd f-bd-top">
-            <span class="box">
-              查看全部43437条评论
-              <i></i>
-            </span>
-          </div>
-        </div>-->
       </div>
     </div>
     <Loading v-show="loading"></Loading>
@@ -139,21 +131,18 @@ export default {
   methods: {
     getReview() {
       const id = sessionStorage.getItem("songid");
-      console.log("ids" + id);
       this.axios.get("/comment/playlist?id=" + id).then(res => {
         if (res.data.code === 200) {
           this.loading = false;
           this.total = res.data.total;
           this.hotComments = res.data.hotComments;
           this.comments = res.data.comments;
-          console.log(res.data);
         }
       });
       this.axios.get("/playlist/detail?id=" + id).then(res => {
         if (res.data.code === 200) {
           this.datas = res.data.playlist;
           this.nickname = this.datas.creator.nickname;
-          console.log(res.data);
         }
       });
     },
@@ -196,25 +185,6 @@ export default {
           return myDate.getHours() + ":" + myDate.getMinutes();
         } 
       }
-      console.log(
-        "now" +
-          now.getFullYear() +
-          "年" +
-          (now.getMonth() + 1) +
-          "月" +
-          now.getDate() +
-          "日"
-      );
-
-      console.log(
-        "myDate" +
-          myDate.getFullYear() +
-          "年" +
-          (myDate.getMonth() + 1) +
-          "月" +
-          myDate.getDate() +
-          "日"
-      );
     },
     returnPage() {
       this.$router.go(-1);

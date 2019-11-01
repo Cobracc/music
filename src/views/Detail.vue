@@ -7,12 +7,9 @@
           class="plhead_bg"
           :style="{'background': 'url('+song_data.coverImgUrl+'?param=300y300)'}"
         ></div>
-        <div
-          class="phone-nav fixed pd23"
-          :style="{'background':listFixed? 'url('+song_data.coverImgUrl+'?param=300y300)' : 'none'}"
-        >
+        <div class="phone-nav fixed pd23" :style="{'background':listFixed? 'black' : 'none'}">
           <i class="iconfont icon-fanhui1 phone iconzuojiantou" @click="back"></i>
-          <span class="text">歌单</span>
+          <span class="text">{{title}}</span>
         </div>
 
         <div class="album-info pd23">
@@ -31,10 +28,8 @@
                 <div class="img-info">
                   <img :src="song_jianjie.avatarUrl" lazy="loaded" />
                 </div>
-                <span>
-                  {{song_jianjie.nickname}}
-                  <i class="iconfont icon-qianjin2"></i>
-                </span>
+                <span>{{song_jianjie.nickname}}</span>
+                <i class="iconfont icon-qianjin2"></i>
               </div>
               <div class="desc-wrapper" @click="show = false">
                 <span class="desc" v-html="descriptions"></span>
@@ -131,7 +126,8 @@ export default {
       loading: true,
       commentCount: "",
       listFixed: false,
-      scrollTop: ""
+      scrollTop: "",
+      title: "歌单"
     };
   },
   components: {
@@ -162,9 +158,11 @@ export default {
       if (scrollTop > 240) {
         this.listFixed = true;
         this.scrollTop = scrollTop;
+        this.title = this.song_data.name;
       } else {
         this.listFixed = false;
         this.scrollTop = scrollTop;
+        this.title = "歌单";
       }
     },
     getDetail() {
@@ -377,7 +375,7 @@ export default {
           }
         }
         .info-con {
-          width: 189px;
+          width: 205px;
           height: 136.5px;
           display: flex;
           -webkit-box-orient: vertical;
@@ -416,12 +414,25 @@ export default {
                 border: 0;
               }
             }
+            span {
+              font-size: 14px;
+              display: inline-block;
+              text-overflow: ellipsis;
+              display: -webkit-box;
+              -webkit-line-clamp: 1;
+              overflow: hidden;
+              -webkit-box-orient: vertical;
+            }
+            i {
+              font-size: 14px;
+              display: inline-block;
+            }
           }
           .desc-wrapper {
             display: flex;
             -webkit-box-align: center;
             align-items: center;
-            color: #fefefe;
+            color: hsla(0,0%,100%,.7);
             .desc {
               width: 157.5px;
               text-overflow: ellipsis;

@@ -9,9 +9,10 @@
           <i class="icon-menu iconfont icon-fanhui1"></i>
         </div>
         <div class="title">
-          <div class="name">{{song_data.name}}
+          <div class="name">
+            {{song_data.name}}
             <p v-show="alia">({{alia}})</p>
-             </div>
+          </div>
           <div class="user">
             <span class="user-name">{{singer}}</span>
             <i class="icon-menu"></i>
@@ -49,7 +50,11 @@
           <div class="vol">
             <div class="touch-bar">
               <div class="left-sider">
-                <i class="icon-menu iconfont icon-shengyin4" v-show="shengyin"></i>
+                <i
+                  class="icon-menu iconfont icon-shengyin4"
+                  @click="hideshengyin"
+                  v-show="shengyin"
+                ></i>
                 <i class="icon-menu iconfont icon-shengyin2" v-show="!shengyin"></i>
               </div>
               <div class="bar">
@@ -67,9 +72,14 @@
           </div>
           <div class="lrc-area" @click="showContent = true,rotates = true,rotates1 = false">
             <div class="full" v-if="noLyric">{{noLyricText}}</div>
-            <div class="lrc-info" v-else >
+            <div class="lrc-info" v-else>
               <div class="lrc-c" ref="lyricLine" v-for="(lines, index) in line" :key="index">
-                <div class="lrc-list" ref="lyricLists" :style="{'transform':'translate3d(0px, -'+(currentLineNum<5?0:currentLineNum-5)*33+'px, 0px)'}"  :class="{'active':currentLineNum ===index}">{{lines.txt}}</div>
+                <div
+                  class="lrc-list"
+                  ref="lyricLists"
+                  :style="{'transform':'translate3d(0px, -'+(currentLineNum<5?0:currentLineNum-5)*33+'px, 0px)'}"
+                  :class="{'active':currentLineNum ===index}"
+                >{{lines.txt}}</div>
               </div>
             </div>
           </div>
@@ -90,8 +100,7 @@
             <span>{{ timeEnd }}</span>
           </div>
           <div class="music-play-set">
-            <div class="play-type icon-menu easy-click" :class="[modeClass]" @click="changeMode()">
-            </div>
+            <div class="play-type icon-menu easy-click" :class="[modeClass]" @click="changeMode()"></div>
             <div class="play-set">
               <div class="play-index icon-menu easy-click iconfont icon-houtui" @click="prev"></div>
               <div
@@ -188,12 +197,11 @@ export default {
   },
   created() {},
   mounted() {
-    // this.scrollLrc();
   },
   watch: {
     index: function(val, oldVal) {
       if (val != oldVal || oldVal == "") {
-        console.log(this.song_data)
+        console.log(this.song_data);
         this.song_data = this.songs[val];
         this.imgurl = this.song_data.al.picUrl + "?param=300y300";
         this.singer = this.song_data.ar[0].name;
@@ -201,7 +209,7 @@ export default {
         this.timeEnd = this.format(this.song_data.dt / 1000);
         this.getData();
       } else {
-        console.log(this.song_data)
+        console.log(this.song_data);
         this.song_data = this.songs[val];
         this.imgurl = this.song_data.al.picUrl + "?param=300y300";
         this.singer = this.song_data.name;
@@ -243,6 +251,7 @@ export default {
         }
       });
     },
+
     //转为小播放器
     returnPage() {
       this.submitFull(false);
@@ -365,15 +374,6 @@ export default {
       this.currentLineNum = lineNum;
       this.playingLyric = txt;
     },
-    //歌曲加载成功
-    audioReady() {
-      // this.savePlayHistory(this.currentSong);
-    },
-    //歌曲加载失败
-    audioError() {
-      // console.log("当前歌曲加载失败，请尝试其他歌曲");
-      // this.songReadey = true;
-    },
     //音频播放时间更新
     timeUpdate() {
       const video = this.$refs.video;
@@ -447,6 +447,12 @@ export default {
         this.length1 = offsetWidth + "%";
         this.$refs.video.volume = this.touch.endX / this.touch.width;
       }
+    },
+    //点击静音
+    hideshengyin() {
+      this.length1 = "0%";
+      this.shengyin = false;
+      this.$refs.video.volume = 0;
     },
     move(e) {
       const left = this.$refs.barBg.offsetLeft;
@@ -586,8 +592,8 @@ export default {
       opacity: 0.96;
       .name {
         font-size: 15.5px;
-        p{
-          display: inline-block
+        p {
+          display: inline-block;
         }
       }
       .user {
@@ -656,9 +662,6 @@ export default {
               -webkit-transform: rotate(360deg);
             }
           }
-          // .rotate {
-          //   animation: marquee 15s linear infinite;
-          // }
         }
       }
       .mc-conf {

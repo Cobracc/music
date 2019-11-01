@@ -1,9 +1,3 @@
-<!--
- * @Author: 李浩栋
- * @Begin: 2019-10-10 08:19:51
- * @Update: 2019-10-10 14:32:03
- * @Update log: 更新日志
- -->
 <template>
   <div class="wrapper">
     <div class="detailnav pd23">
@@ -44,8 +38,6 @@ export default {
   name: "",
   components: {
     selectList,
-    // generalNav,
-    // artist,
     Loading
   },
   data() {

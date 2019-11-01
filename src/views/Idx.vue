@@ -1,9 +1,3 @@
-<!--
- * @Author: 李浩栋
- * @Begin: 2019-09-06 11:39:05
- * @Update: 2019-09-17 20:25:56
- * @Update log: 更新日志
- -->
 <template>
   <div class="wrapper pd23">
     <div class="detail_nav">
@@ -98,7 +92,6 @@ export default {
         }
       });
       this.submitSongid(id);
-      console.log("id1" + id);
       sessionStorage.setItem("songid", id);
     },
     ...mapMutations({

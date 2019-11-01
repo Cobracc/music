@@ -54,11 +54,6 @@ export default {
       type: String,
       default: "15.75px"
     },
-    // 如果是轮播图，则显示大播放按钮
-    swiper: {
-      type: Boolean,
-      default: false
-    },
     fine: {
       type: Boolean,
       default: false
@@ -73,49 +68,8 @@ export default {
       type: String
     }
   },
-  // filters: {
-  //   setPlayCount: function(val) {
-  //     if (!val) {
-  //       return "";
-  //     }
-  //     if (val > 100000000) {
-  //       val = (val / 100000000).toFixed(1) + "亿";
-  //     } else if (val > 10000) {
-  //       val = Math.floor(val / 10000) + "万";
-  //     }
-  //     return val;
-  //   }
-  // },
   methods: {
-    /**
-     * 给图片卡片注册点击事件
-     *
-     * 当没有idx时，查看是否有albumId，如果有跳转歌单页面
-     * 如果有idx时说明是排行榜页面，跳转到排行榜页面
-     */
     searchIdx(idx) {
-      // if (!idx) {
-      //   if (this.albumId) {
-      //     console.log("go");
-      //     // [vue-router] Route with name 'albumPage' does not exist
-      //     // 需要给路由设置name
-      //     // 并且这个路由在配置的时候不能加 /:id
-      //     this.$router.push({
-      //       name: "albumPage",
-      //       params: { albumId: this.albumId }
-      //     });
-      //     // this.$router.push(`/albumPage/${this.albumId}`)
-      //     return;
-      //   }
-      //   if (this.dishId) {
-      //     this.$router.push({
-      //       name: "albumPage",
-      //       params: { dishId: this.dishId }
-      //     });
-      //     return;
-      //   }
-      //   return;
-      // }
       switch (idx) {
         case "云音乐新歌榜":
           idx = 0;

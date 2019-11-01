@@ -9,6 +9,7 @@ import Search from "./views/Search.vue";
 import Singer from "./views/Singer.vue";
 import Review from "./views/Review.vue";
 import dateRecommend from "./views/dateRecommend.vue";
+import moreNewDish from "./views/moreNewDish.vue";
 Vue.use(Router);
 
 export default new Router({
@@ -78,6 +79,14 @@ export default new Router({
       path: "/dateRecommend",
       name: "dateRecommend",
       component: dateRecommend,
+      meta: {
+        keepAlive: true
+      }
+    },
+    {
+      path: "/moreNewDish",
+      name: "moreNewDish",
+      component: moreNewDish,
       meta: {
         keepAlive: true
       }
