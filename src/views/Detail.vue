@@ -179,7 +179,7 @@ export default {
               this.loading = false;
               this.song_data = res.data.playlist;
               this.commentCount = this.song_data.commentCount;
-              this.imgurl = res.data.playlist.coverImgUrl;
+              this.imgurl = res.data.playlist.coverImgUrl+ "?param=300y300";
               this.song_jianjie = this.song_data.creator;
               this.songs = res.data.playlist.tracks;
               this.song = res.data.playlist.trackIds;
@@ -244,7 +244,7 @@ export default {
       this.$router.go(-1);
     },
     goplay(index) {
-      this.axios.get("/check/music?id=33894312").then(res => {
+      this.axios.get("/check/music?id="+this.songs[index].id).then(res => {
         if (res.data.message == "ok") {
           sessionStorage.setItem("ID", this.songs[index].id);
           sessionStorage.setItem("songs", JSON.stringify(this.songs));

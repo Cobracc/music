@@ -11,7 +11,7 @@
     </ul>
     <ul class="list-wrap">
       <li
-        class="list-item"
+        class="list-item1"
         :class="{active : item.id === _secondId }"
         v-for="(item) in secondList"
         :key="item.id"
@@ -73,6 +73,10 @@ export default {
   margin: 15.75px 0;
   list-style: none;
   .list-item {
+    // margin-right: 21px;
+    flex: 1;
+  }
+  .list-item1 {
     margin-right: 21px;
   }
 }

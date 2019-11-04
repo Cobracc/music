@@ -10,6 +10,7 @@ import Singer from "./views/Singer.vue";
 import Review from "./views/Review.vue";
 import dateRecommend from "./views/dateRecommend.vue";
 import moreNewDish from "./views/moreNewDish.vue";
+import moreNewSongs from "./views/moreNewSongs.vue";
 Vue.use(Router);
 
 export default new Router({
@@ -87,6 +88,14 @@ export default new Router({
       path: "/moreNewDish",
       name: "moreNewDish",
       component: moreNewDish,
+      meta: {
+        keepAlive: true
+      }
+    },
+    {
+      path: "/moreNewSongs",
+      name: "moreNewSongs",
+      component: moreNewSongs,
       meta: {
         keepAlive: true
       }

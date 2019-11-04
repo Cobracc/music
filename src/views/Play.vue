@@ -201,7 +201,6 @@ export default {
   watch: {
     index: function(val, oldVal) {
       if (val != oldVal || oldVal == "") {
-        console.log(this.song_data);
         this.song_data = this.songs[val];
         this.imgurl = this.song_data.al.picUrl + "?param=300y300";
         this.singer = this.song_data.ar[0].name;
@@ -373,6 +372,15 @@ export default {
     handleLyric({ lineNum, txt }) {
       this.currentLineNum = lineNum;
       this.playingLyric = txt;
+    },
+    //歌曲加载成功
+    audioReady() {
+      // this.savePlayHistory(this.currentSong);
+    },
+    //歌曲加载失败
+    audioError() {
+      // console.log("当前歌曲加载失败，请尝试其他歌曲");
+      // this.songReadey = true;
     },
     //音频播放时间更新
     timeUpdate() {
@@ -662,6 +670,9 @@ export default {
               -webkit-transform: rotate(360deg);
             }
           }
+          // .rotate {
+          //   animation: marquee 15s linear infinite;
+          // }
         }
       }
       .mc-conf {
