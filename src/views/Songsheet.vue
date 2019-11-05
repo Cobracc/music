@@ -17,92 +17,26 @@
       </mt-navbar>
       <mt-tab-container v-model="selected">
         <mt-tab-container-item id="1">1</mt-tab-container-item>
-        <mt-tab-container-item id="2">1</mt-tab-container-item>
-        <mt-tab-container-item id="3">1</mt-tab-container-item>
+        <mt-tab-container-item id="2">
+          <song-card :songList="guanfangs" @showIndex="guanfangsId"></song-card>
+        </mt-tab-container-item>
+        <mt-tab-container-item id="3">
+          <song-card :songList="jingpins" @showIndex="jingpinsId"></song-card>
+        </mt-tab-container-item>
         <mt-tab-container-item id="4">
-          <div
-            class="recommend_song"
-            @click="huayusId(index)"
-            v-for="(item,index) in huayus"
-            :key="index"
-          >
-            <img :src="item.coverImgUrl" alt />
-            <p class="recommend_title">{{item.name}}</p>
-            <div class="playSong">
-              <div
-                class="playCount"
-              >{{`${item.playCount>100000000?`${(item.playCount/100000000).toFixed(1)}亿`:`${item.playCount>10000?`${parseInt(item.playCount/10000)}万`:item.playCount}`}`}}</div>
-              <i class="iconfont icon-bofang1"></i>
-            </div>
-          </div>
+          <song-card :songList="huayus" @showIndex="huayusId"></song-card>
         </mt-tab-container-item>
         <mt-tab-container-item id="5">
-          <div
-            class="recommend_song"
-            @click="liuxingsId(index)"
-            v-for="(item,index) in liuxings"
-            :key="index"
-          >
-            <img :src="item.coverImgUrl" alt />
-            <p class="recommend_title">{{item.name}}</p>
-            <div class="playSong">
-              <div
-                class="playCount"
-              >{{`${item.playCount>100000000?`${(item.playCount/100000000).toFixed(1)}亿`:`${item.playCount>10000?`${parseInt(item.playCount/10000)}万`:item.playCount}`}`}}</div>
-              <i class="iconfont icon-bofang1"></i>
-            </div>
-          </div>
+          <song-card :songList="liuxings" @showIndex="liuxingsId"></song-card>
         </mt-tab-container-item>
         <mt-tab-container-item id="6">
-          <div
-            class="recommend_song"
-            @click="minyaosId(index)"
-            v-for="(item,index) in minyaos"
-            :key="index"
-          >
-            <img :src="item.coverImgUrl" alt />
-            <p class="recommend_title">{{item.name}}</p>
-            <div class="playSong">
-              <div
-                class="playCount"
-              >{{`${item.playCount>100000000?`${(item.playCount/100000000).toFixed(1)}亿`:`${item.playCount>10000?`${parseInt(item.playCount/10000)}万`:item.playCount}`}`}}</div>
-              <i class="iconfont icon-bofang1"></i>
-            </div>
-          </div>
+          <song-card :songList="minyaos" @showIndex="minyaosId"></song-card>
         </mt-tab-container-item>
         <mt-tab-container-item id="7">
-          <div
-            class="recommend_song"
-            @click="dianzisId(index)"
-            v-for="(item,index) in dianzis"
-            :key="index"
-          >
-            <img :src="item.coverImgUrl" alt />
-            <p class="recommend_title">{{item.name}}</p>
-            <div class="playSong">
-              <div
-                class="playCount"
-              >{{`${item.playCount>100000000?`${(item.playCount/100000000).toFixed(1)}亿`:`${item.playCount>10000?`${parseInt(item.playCount/10000)}万`:item.playCount}`}`}}</div>
-              <i class="iconfont icon-bofang1"></i>
-            </div>
-          </div>
+          <song-card :songList="dianzis" @showIndex="dianzisId"></song-card>
         </mt-tab-container-item>
         <mt-tab-container-item id="8">
-          <div
-            class="recommend_song"
-            @click="yaogunsId(index)"
-            v-for="(item,index) in yaoguns"
-            :key="index"
-          >
-            <img :src="item.coverImgUrl" alt />
-            <p class="recommend_title">{{item.name}}</p>
-            <div class="playSong">
-              <div
-                class="playCount"
-              >{{`${item.playCount>100000000?`${(item.playCount/100000000).toFixed(1)}亿`:`${item.playCount>10000?`${parseInt(item.playCount/10000)}万`:item.playCount}`}`}}</div>
-              <i class="iconfont icon-bofang1"></i>
-            </div>
-          </div>
+          <song-card :songList="yaoguns" @showIndex="yaogunsId"></song-card>
         </mt-tab-container-item>
       </mt-tab-container>
     </div>
@@ -110,19 +44,25 @@
 </template>
 <script>
 import { mapGetters, mapMutations, mapActions } from "vuex";
+import songCard from "@/components/songCard.vue";
 export default {
+  components: {
+    songCard
+  },
   data() {
     return {
       selected: "",
-      huayus: {},
-      liuxings: {},
-      minyaos: {},
-      dianzis:{},
-      yaoguns:{}
+      huayus: [],
+      liuxings: [],
+      minyaos: [],
+      dianzis: [],
+      yaoguns: [],
+      jingpins: [],
+      guanfangs: []
     };
   },
   created() {
-    this.selected = "4";
+    this.selected = "2";
     this.show();
   },
   methods: {
@@ -131,21 +71,51 @@ export default {
     },
     show() {
       const _this = this;
-      this.axios.get("/top/playlist?limit=12&cat=华语").then(function(res) {
+      this.axios.get("/top/playlist?limit=18&cat=官方").then(function(res) {
+        _this.guanfangs = res.data.playlists;
+      });
+      this.axios.get("/top/playlist?limit=18&cat=华语").then(function(res) {
         _this.huayus = res.data.playlists;
       });
-      this.axios.get("/top/playlist?limit=12&cat=流行").then(function(res) {
+      this.axios.get("/top/playlist?limit=18&cat=流行").then(function(res) {
         _this.liuxings = res.data.playlists;
       });
-      this.axios.get("/top/playlist?limit=12&cat=民谣").then(function(res) {
+      this.axios.get("/top/playlist?limit=18&cat=民谣").then(function(res) {
         _this.minyaos = res.data.playlists;
       });
-      this.axios.get("/top/playlist?limit=12&cat=电子").then(function(res) {
+      this.axios.get("/top/playlist?limit=18&cat=电子").then(function(res) {
         _this.dianzis = res.data.playlists;
       });
-      this.axios.get("/top/playlist?limit=12&cat=摇滚").then(function(res) {
+      this.axios.get("/top/playlist?limit=18&cat=摇滚").then(function(res) {
         _this.yaoguns = res.data.playlists;
       });
+      this.axios.get("/top/playlist/highquality").then(function(res) {
+        _this.jingpins = res.data.playlists;
+      });
+    },
+    guanfangsId(index) {
+      this.$router.push({
+        path: "/detail",
+        name: "detail",
+        params: {
+          id: this.guanfangs[index].id
+        }
+      });
+      this.submitSongid(this.guanfangs[index].id);
+      // this.submitIndex(index);
+      sessionStorage.setItem("songid", this.guanfangs[index].id);
+    },
+    jingpinsId(index) {
+      this.$router.push({
+        path: "/detail",
+        name: "detail",
+        params: {
+          id: this.jingpins[index].id
+        }
+      });
+      this.submitSongid(this.jingpins[index].id);
+      // this.submitIndex(index);
+      sessionStorage.setItem("songid", this.jingpins[index].id);
     },
     huayusId(index) {
       this.$router.push({

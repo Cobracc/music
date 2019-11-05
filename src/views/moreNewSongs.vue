@@ -14,7 +14,7 @@
     </div>
     <div class="songs">
       <div class="title titleMt">
-        <span @click="goplay(0)">
+        <span>
           <span>
             <i class="iconfont icon-bofang5"></i>
             播放全部
@@ -22,7 +22,7 @@
           <span class="count">(共{{songs.length}}首)</span>
         </span>
       </div>
-        <div class="list-item" v-for="(item,index) in songs" :key="index" @click="goplay(index)">
+        <div class="list-item" v-for="(item,index) in songs" :key="index">
           <div class="img-info">
             <img :src="item.album.picUrl + '?param=200y200'" alt />
           </div>
@@ -112,11 +112,9 @@ export default {
       this.axios.get("/check/music?id=" + this.songs[index].id).then(res => {
         if (res.data.message == "ok") {
           sessionStorage.setItem("ID", this.songs[index].id);
-          sessionStorage.setItem("songs", JSON.stringify(this.songs));
           sessionStorage.setItem("index", index);
           this.submitId(this.songs[index].id);
           this.submitIndex(index);
-          this.submitSongs(this.songs);
           this.submitFull(true);
           this.submitIsPlay(true);
         } else {
@@ -171,6 +169,7 @@ export default {
   }
   .songs {
     margin-top: 90px;
+    padding-left: 1px;
     .title {
       font-size: 15.75px;
       height: 42px;
