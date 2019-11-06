@@ -99,7 +99,7 @@ export default {
     // 更新
     updateFirst(val) {
       this.firstId = val;
-      this.changeId();
+      this.changeId()
     },
     changeId() {
       this.loading = true;
