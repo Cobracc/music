@@ -11,6 +11,9 @@ import Review from "./views/Review.vue";
 import dateRecommend from "./views/dateRecommend.vue";
 import moreNewDish from "./views/moreNewDish.vue";
 import moreNewSongs from "./views/moreNewSongs.vue";
+import login from "./views/loginIndex.vue";
+import phone from "./views/phone.vue";
+import pwd from "./views/phonePwd.vue";
 Vue.use(Router);
 
 export default new Router({
@@ -96,6 +99,30 @@ export default new Router({
       path: "/moreNewSongs",
       name: "moreNewSongs",
       component: moreNewSongs,
+      meta: {
+        keepAlive: true
+      }
+    },
+    {
+      path: "/login",
+      name: "login",
+      component: login,
+      meta: {
+        keepAlive: true
+      }
+    },
+    {
+      path: "/phone",
+      name: "phone",
+      component: phone,
+      meta: {
+        keepAlive: true
+      }
+    },
+    {
+      path: "/pwd",
+      name: "pwd",
+      component: pwd,
       meta: {
         keepAlive: true
       }

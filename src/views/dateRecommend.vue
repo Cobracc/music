@@ -10,23 +10,22 @@ export default {
     return {};
   },
   created() {
-    this.getDaterecommend();
+    this.go();
+    // this.getDaterecommend();
   },
   methods: {
-    // 获取每日推荐歌曲
-    getDaterecommend() {
-      this.axios
-        .get("/login/cellphone?phone=18815612722&password=1392264059@CC.")
-        .then(res => {
-          if (res.data.code === 200) {
-            // this.success();
-            console.log(res.data);
-          }
-        });
-    },
+    // // 获取每日推荐歌曲
+    // getDaterecommend() {
+    //   this.axios
+    //     .get("/login/cellphone?phone=18815612722&password=1392264059@CC.")
+    //     .then(res => {
+    //       if (res.data.code === 200) {
+    //         // this.success();
+    //         console.log(res.data);
+    //       }
+    //     });
+    // },
     success() {
-      localStorage.setItem("account", 18815612722);
-      localStorage.setItem("loginState", 1);
       this.axios.get("/login/status").then(res => {
         // 存取用户 id
         let userId = res.data.profile.userId;
@@ -49,7 +48,8 @@ export default {
       });
     },
     go() {
-      this.axios.get("/login/status").then(res => {
+      this.axios.get("/recommend/songs").then(res => {
+        console.log(res.data)
         if (res.data.code === 200) {
           console.log(res.data);
         }

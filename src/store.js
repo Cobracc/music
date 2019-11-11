@@ -10,7 +10,10 @@ export default new Vuex.Store({
     index: "",
     songs: [],
     Full: true,
-    isPlay: false
+    isPlay: false,
+    show_login: false,
+    loginState: 0, // 登陆状态，初始值为 0 未登录，登陆成功设置为 1
+    accountUid: 0
   },
   getters: {
     songid: state => state.songid,
@@ -18,7 +21,10 @@ export default new Vuex.Store({
     index: state => state.index,
     songs: state => state.songs,
     Full: state => state.Full,
-    isPlay: state => state.isPlay
+    isPlay: state => state.isPlay,
+    show_login: state => state.show_login,
+    login_state: state => state.login_state,
+    accountUid: state => state.accountUid
   },
   mutations: {
     submitSongid(state, songid) {
@@ -39,6 +45,18 @@ export default new Vuex.Store({
     },
     submitIsPlay(state, isPlay) {
       state.isPlay = isPlay;
+    },
+    show_login(state) {
+      state.show_login = true;
+    },
+    hide_login(state) {
+      state.show_login = false;
+    },
+    login_state(state) {
+      state.login_state = 1;
+    },
+    accountUid(state, id) {
+      state.accountUid = id;
     }
   },
   actions: {}

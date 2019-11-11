@@ -1,6 +1,7 @@
 <template>
   <div class="headers">
     <mt-navbar v-model="selected">
+      <i class="iconfont icon-caidan1" @click="show_login"></i>
       <mt-tab-item id="1">我的</mt-tab-item>
       <mt-tab-item id="2">发现</mt-tab-item>
       <i class="iconfont icon-sousuo" @click="goSearch"></i>
@@ -71,14 +72,17 @@
         <new-dish></new-dish>
       </mt-tab-container-item>
     </mt-tab-container>
+    <login-page-is-show></login-page-is-show>
   </div>
 </template>
 <script>
 import { mapGetters, mapMutations, mapActions } from "vuex";
 import newDish from "@/components/newDish.vue";
+import loginPageIsShow from '@/components/loginPageIsShow.vue'
 export default {
   components: {
-    newDish
+    newDish,
+    loginPageIsShow
   },
   data() {
     return {
@@ -127,7 +131,8 @@ export default {
       sessionStorage.setItem("songid", this.recommends[index].id);
     },
     ...mapMutations({
-      submitSongid: "submitSongid"
+      submitSongid: "submitSongid",
+      show_login:"show_login"
     })
   }
 };
@@ -139,13 +144,25 @@ export default {
   padding: 0px;
   margin: 0 auto;
   .mint-navbar {
-    i {
+    .icon-sousuo {
       height: 3rem;
       line-height: 48px;
       position: absolute;
       right: 0px;
       display: block;
       width: 3rem;
+    }
+    .icon-caidan1 {
+      height: 3rem;
+      line-height: 48px;
+      position: absolute;
+      left: 0px;
+      display: block;
+      width: 3rem;
+    }
+    .mint-tab-item:first-of-type {
+     flex: 0.25;
+    margin-left: 32%;
     }
   }
   .mint-swipe-item {
